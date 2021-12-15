@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mieftah.academy.AcademyAdapter
-import com.mieftah.academy.R
 import com.mieftah.academy.databinding.FragmentAcademyBinding
 import com.mieftah.academy.utils.DataDummy
 
