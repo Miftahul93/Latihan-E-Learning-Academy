@@ -10,9 +10,8 @@ import com.mieftah.academy.R
 import com.mieftah.academy.data.CourseEntity
 import com.mieftah.academy.databinding.ItemsBookmarkBinding
 import com.mieftah.academy.ui.detail.DetailCourseActivity
-import javax.security.auth.callback.Callback
 
-class BookmarkAdapter(private val callback: BookmarkFragmentCallback) : RecyclerView.Adapter<BookmarkAdapter.CourseViewHolder>() {
+class BookmarkAdapter(private val callback: BookmarkFragment) : RecyclerView.Adapter<BookmarkAdapter.CourseViewHolder>() {
 
     private val listCourses = ArrayList<CourseEntity>()
 
