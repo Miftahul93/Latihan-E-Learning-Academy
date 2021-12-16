@@ -16,7 +16,7 @@ import com.mieftah.academy.ui.reader.CourseReaderCallback
 import com.mieftah.academy.utils.DataDummy
 
 
-class ModuleListFragment : Fragment(), ModuleListAdapter.MyAdapterClickListener {
+class ModuleListFragment : Fragment(), MyAdapterClickListener {
 
     companion object {
         val TAG: String = ModuleListFragment::class.java.simpleName
