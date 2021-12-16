@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mieftah.academy.data.CourseEntity
 import com.mieftah.academy.databinding.FragmentBookmarkBinding
 import com.mieftah.academy.utils.DataDummy
 
@@ -37,5 +38,8 @@ class BookmarkFragment : Fragment() {
                 this.adapter = adapter
             }
         }
+    }
+
+    fun onShareClick(course: CourseEntity) {
     }
 }

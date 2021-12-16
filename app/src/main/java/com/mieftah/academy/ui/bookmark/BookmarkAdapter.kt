@@ -46,10 +46,15 @@ class BookmarkAdapter(private val callback: BookmarkFragment) : RecyclerView.Ada
                 imgShare.setOnClickListener { callback.onShareClick(course) }
                 Glide.with(itemView.context)
                     .load(course.imagePath)
-                    .apply(RequestOptions.placeholderOf(R.drawable.ic_loading))
-                    .error(R.drawable.ic_error)
+                    .apply(RequestOptions.placeholderOf(R.drawable.ic_loading)
+                    .error(R.drawable.ic_error))
                     .into(imagePoster)
             }
         }
+    }
+
+    interface BookmarkFragmentCallback {
+        fun onShareClick(course: CourseEntity)
+
     }
 }
