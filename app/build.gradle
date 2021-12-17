@@ -59,4 +59,7 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
     androidTestImplementation "androidx.test:runner:$androidTestVersion"
     androidTestImplementation "androidx.test:rules:$androidTestVersion"
+
+    // Instrumental Testing dengan Espresso
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
 }
