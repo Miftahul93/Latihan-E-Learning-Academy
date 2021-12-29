@@ -71,15 +71,15 @@ class JsonHelper(private val context: Context) {
         return list
     }
 
-    fun loadContent(modulId: String): ContentResponse {
-        val fileName = String.format("Content_%s.json", modulId)
+    fun loadContent(moduleId: String): ContentResponse {
+        val fileName = String.format("Content_%s.json", moduleId)
         var contentResponse: ContentResponse? = null
         try {
             val result = parsingFileToString(fileName)
             if (result != null) {
                 val responseObject = JSONObject(result)
                 val content = responseObject.getString("content")
-                contentResponse = ContentResponse(modulId, content)
+                contentResponse = ContentResponse(moduleId, content)
             }
         } catch (e: JSONException) {
             e.printStackTrace()
