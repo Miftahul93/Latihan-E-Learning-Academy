@@ -3,9 +3,10 @@ package com.mieftah.academy.ui.reader
 import androidx.lifecycle.ViewModel
 import com.mieftah.academy.data.ContentEntity
 import com.mieftah.academy.data.ModuleEntity
+import com.mieftah.academy.data.source.AcademyRepository
 import com.mieftah.academy.utils.DataDummy
 
-class CourseReaderViewModel : ViewModel() {
+class CourseReaderViewModel(private val academyRepository: AcademyRepository) : ViewModel() {
     private lateinit var courseId : String
     private lateinit var moduleId: String
 
@@ -17,9 +18,9 @@ class CourseReaderViewModel : ViewModel() {
         this.moduleId = moduleId
     }
 
-    fun getModules() : ArrayList<ModuleEntity> = DataDummy.generateDummyModules(courseId)
+    fun getModules() : ArrayList<ModuleEntity> = academyRepository.getAllModulesByCourse(courseId) // sebelumnya -> DataDummy.generateDummyModules(courseId)
 
-    fun getSelectedModule(): ModuleEntity {
+    fun getSelectedModule(): ModuleEntity = academyRepository.getContent(courseId, moduleId) /* // sebelumnya -> {
         lateinit var module: ModuleEntity
         val moduleEntities = getModules()
         for (moduleEntity in moduleEntities) {
@@ -30,5 +31,5 @@ class CourseReaderViewModel : ViewModel() {
             }
         }
         return module
-    }
+    } */
 }
