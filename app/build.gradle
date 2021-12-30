@@ -61,6 +61,10 @@ dependencies {
     androidTestImplementation "androidx.test:runner:$androidTestVersion"
     androidTestImplementation "androidx.test:rules:$androidTestVersion"
 
+    // testing Repository dan Injection
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "org.mockito:mockito-inline:$mockitoVersion"
+
     // Instrumental Testing dengan Espresso
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
 }

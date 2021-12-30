@@ -35,8 +35,12 @@ ext {
     espressoVersion = '3.4.0'
     androidTestVersion = '1.4.0'
     androidXTestVersion = '1.2.0'
+    // Repository dan Injection
+    mockitoVersion = '3.6.0'
 
     materialVersion = '1.4.0'
     recyclerViewVersion = '1.2.1'
     glideVersion = '4.12.0'
+
+    archLifecycleVersion = '2.2.0'
 }
