@@ -5,7 +5,7 @@ import com.mieftah.academy.data.source.AcademyRepository
 import com.mieftah.academy.data.source.remote.RemoteDataSource
 import com.mieftah.academy.utils.JsonHelper
 
-object injection {
+object Injection {
     fun providerRepository(context: Context) : AcademyRepository {
         val remoteDataSource = RemoteDataSource.getInstance(JsonHelper(context))
 
