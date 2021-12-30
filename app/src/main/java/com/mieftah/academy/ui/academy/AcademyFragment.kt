@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mieftah.academy.databinding.FragmentAcademyBinding
 import com.mieftah.academy.utils.DataDummy
+import com.mieftah.academy.viewmodel.ViewModelFactory
 
 class AcademyFragment : Fragment() {
 
@@ -28,10 +29,12 @@ class AcademyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null) {
-            //val courses = DataDummy.generateDummyCourses()
+            // 1. val courses = DataDummy.generateDummyCourses()
+            // 3 penerapan viewmodel factory di viewmodel
+            val factory = ViewModelFactory.getInstance(requireActivity())
 
-                // Penerapan ViewModel
-            val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[AcademyViewModel::class.java]
+                // 2. Penerapan ViewModel
+            val viewModel = ViewModelProvider(this, factory)[AcademyViewModel::class.java]
             val courses = viewModel.getCourse()
             val academyAdapter = AcademyAdapter()
             academyAdapter.setCourses(courses)

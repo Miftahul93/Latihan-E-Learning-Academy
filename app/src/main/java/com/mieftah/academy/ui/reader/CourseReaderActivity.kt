@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.mieftah.academy.R
 import com.mieftah.academy.ui.reader.content.ModuleContentFragment
 import com.mieftah.academy.ui.reader.list.ModuleListFragment
+import com.mieftah.academy.viewmodel.ViewModelFactory
 
 class CourseReaderActivity : AppCompatActivity(), CourseReaderCallback {
 
@@ -17,8 +18,10 @@ class CourseReaderActivity : AppCompatActivity(), CourseReaderCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_course_reader)
 
-        // penambahan Viewmodel
-        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[CourseReaderViewModel::class.java]
+        // 3 penerapan viewmodel factory di viewmodel
+        val factory = ViewModelFactory.getInstance(this)
+        // 2. penambahan Viewmodel
+        val viewModel = ViewModelProvider(this, factory)[CourseReaderViewModel::class.java]
 
         val bundle = intent.extras
         if (bundle != null) {

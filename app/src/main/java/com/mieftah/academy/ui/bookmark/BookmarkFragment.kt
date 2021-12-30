@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mieftah.academy.data.CourseEntity
 import com.mieftah.academy.databinding.FragmentBookmarkBinding
 import com.mieftah.academy.utils.DataDummy
+import com.mieftah.academy.viewmodel.ViewModelFactory
 
 
 class BookmarkFragment : Fragment() {
@@ -30,10 +31,13 @@ class BookmarkFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null) {
-            //val courses = DataDummy.generateDummyCourses()
+            // 1. val courses = DataDummy.generateDummyCourses()
 
-            //Menerapkan viewModel
-            val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[BookmarkViewModel::class.java]
+            // 3 penerapan viewmodel factory di viewmodel
+            val factory = ViewModelFactory.getInstance(requireActivity())
+
+            // 2. Menerapkan viewModel
+            val viewModel = ViewModelProvider(this, factory)[BookmarkViewModel::class.java]
             val courses = viewModel.getBookmarks()
             val adapter = BookmarkAdapter(this)
             adapter.setCourses(courses)

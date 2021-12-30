@@ -18,6 +18,7 @@ import com.mieftah.academy.databinding.ActivityDetailCourseBinding
 import com.mieftah.academy.databinding.ContentDetailCourseBinding
 import com.mieftah.academy.ui.reader.CourseReaderActivity
 import com.mieftah.academy.utils.DataDummy
+import com.mieftah.academy.viewmodel.ViewModelFactory
 
 class DetailCourseActivity : AppCompatActivity() {
 
@@ -42,8 +43,10 @@ class DetailCourseActivity : AppCompatActivity() {
 
         val adapter = DetailCourseAdapter()
 
-        // Menerapkan ViewModel
-        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailCourseViewModel::class.java]
+        // 3 penerapan viewmodel factory di viewmodel
+        val factory = ViewModelFactory.getInstance(this)
+        // 2. Menerapkan ViewModel
+        val viewModel = ViewModelProvider(this, factory)[DetailCourseViewModel::class.java]
 
         val extras = intent.extras
         if (extras != null) {

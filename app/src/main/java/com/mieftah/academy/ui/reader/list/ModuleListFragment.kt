@@ -16,6 +16,7 @@ import com.mieftah.academy.ui.reader.CourseReaderActivity
 import com.mieftah.academy.ui.reader.CourseReaderCallback
 import com.mieftah.academy.ui.reader.CourseReaderViewModel
 import com.mieftah.academy.utils.DataDummy
+import com.mieftah.academy.viewmodel.ViewModelFactory
 
 
 class ModuleListFragment : Fragment(), MyAdapterClickListener {
@@ -44,8 +45,11 @@ class ModuleListFragment : Fragment(), MyAdapterClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //ViewModel
-        viewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())[CourseReaderViewModel::class.java]
+        // 2. penerapan viewmodel factory ke viewmodel
+        val factory = ViewModelFactory.getInstance(requireActivity())
+
+        // 1. ViewModel
+        viewModel = ViewModelProvider(requireActivity(), factory)[CourseReaderViewModel::class.java]
 
         adapter = ModuleListAdapter(this)
         //populateRecyclerView(DataDummy.generateDummyModules("a14"))
