@@ -3,6 +3,7 @@ package com.mieftah.academy.ui.detail
 import android.content.Intent
 import android.os.Bundle
 import android.view.RoundedCorner
+import android.view.View
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -53,13 +54,25 @@ class DetailCourseActivity : AppCompatActivity() {
             val courseId = extras.getString(EXTRA_COURSE)
             if (courseId != null) {
                 //val modules = DataDummy.generateDummyModules(courseId)
+
+                activityDetailCourseBinding.progressBar.visibility = View.VISIBLE
+                activityDetailCourseBinding.content.visibility = View.INVISIBLE
+
                 // menerapkan Viewmodel
                 viewModel.setSelectedCourse(courseId)
-                val modules = viewModel.getModules()
+                viewModel.getModules().observe(this, { modules ->
+                    activityDetailCourseBinding.progressBar.visibility = View.GONE
+                    activityDetailCourseBinding.content.visibility = View.VISIBLE
 
-                adapter.setModules(modules)
+                    adapter.setModules(modules)
+                    adapter.notifyDataSetChanged()
+                })
+                viewModel.getCourse().observe(this, { course -> populateCourse(course)})
+                //val modules = viewModel.getModules()
 
-                populateCourse(viewModel.getCourse() as CourseEntity)
+                //adapter.setModules(modules)
+
+//                populateCourse(viewModel.getCourse() as CourseEntity)
 
              /*   for (course in DataDummy.generateDummyCourses()) {
                     if (course.courseId == courseId) {

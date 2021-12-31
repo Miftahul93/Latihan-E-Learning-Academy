@@ -1,5 +1,6 @@
 package com.mieftah.academy.ui.detail
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.mieftah.academy.data.CourseEntity
 import com.mieftah.academy.data.ModuleEntity
@@ -13,7 +14,7 @@ class DetailCourseViewModel(private val academyRepository: AcademyRepository) : 
         this.courseId = courseId
     }
 
-    fun getCourse(): CourseEntity = academyRepository.getCourseWithModules(courseId) // sebelumnya -> {
+    fun getCourse(): LiveData<CourseEntity> = academyRepository.getCourseWithModules(courseId) // sebelumnya -> {
 /*        lateinit var course: CourseEntity
         val coursesEntities = DataDummy.generateDummyCourses()
         for (courseEntity in coursesEntities) {
@@ -24,5 +25,6 @@ class DetailCourseViewModel(private val academyRepository: AcademyRepository) : 
         return course
     }
 */
-    fun getModules(): List<ModuleEntity> = academyRepository.getAllModulesByCourse(courseId) // sebelumnya -> DataDummy.generateDummyModules(courseId)
+
+    fun getModules(): LiveData<List<ModuleEntity>> = academyRepository.getAllModulesByCourse(courseId) // sebelumnya -> DataDummy.generateDummyModules(courseId)
 }

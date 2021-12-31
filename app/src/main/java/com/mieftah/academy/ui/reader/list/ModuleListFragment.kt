@@ -52,8 +52,16 @@ class ModuleListFragment : Fragment(), MyAdapterClickListener {
         viewModel = ViewModelProvider(requireActivity(), factory)[CourseReaderViewModel::class.java]
 
         adapter = ModuleListAdapter(this)
+
+        // menerapkan liveData dalam jetpak
+        fragmentModuleListBinding.progressBar.visibility = View.VISIBLE
+        viewModel.getModules().observe(this, {modules ->
+            fragmentModuleListBinding.progressBar.visibility = View.GONE
+            populateRecyclerView(modules)
+        })
+
         //populateRecyclerView(DataDummy.generateDummyModules("a14"))
-        populateRecyclerView(viewModel.getModules())
+        //populateRecyclerView(viewModel.getModules())
     }
 
     override fun onAttach(context: Context) {

@@ -42,8 +42,18 @@ class ModuleContentFragment : Fragment() {
             val factory = ViewModelFactory.getInstance(requireActivity())
             // 2 Penerapan ViewModel
             val viewModel = ViewModelProvider(requireActivity(), factory)[CourseReaderViewModel::class.java]
+
+            // Menerapkan LiveData dalam jetpak
+            fragmentModuleContentBinding.progressBar.visibility = View.VISIBLE
+            viewModel.getSelectedModule().observe(this, {module ->
+                fragmentModuleContentBinding.progressBar.visibility = View.GONE
+                if (module != null) {
+                    populateWebView(module)
+                }
+            })
+            /*
             val module = viewModel.getSelectedModule()
-            populateWebView(module)
+            populateWebView(module)*/
         }
     }
 

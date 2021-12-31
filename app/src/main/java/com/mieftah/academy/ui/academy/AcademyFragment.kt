@@ -37,7 +37,14 @@ class AcademyFragment : Fragment() {
             val viewModel = ViewModelProvider(this, factory)[AcademyViewModel::class.java]
             val courses = viewModel.getCourse()
             val academyAdapter = AcademyAdapter()
-            academyAdapter.setCourses(courses)
+
+            // Menerapkan Live Data dalam jetpak
+            fragmentAcademyBinding.progressBar.visibility = View.VISIBLE
+            viewModel.getCourse().observe(this, {courses ->
+                fragmentAcademyBinding.progressBar.visibility = View.GONE
+                academyAdapter.setCourses(courses)
+                academyAdapter.notifyDataSetChanged()
+            })
 
             with(fragmentAcademyBinding.rvAcademy) {
                 layoutManager = LinearLayoutManager(context)

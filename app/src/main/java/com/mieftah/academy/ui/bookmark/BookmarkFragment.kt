@@ -39,8 +39,15 @@ class BookmarkFragment : Fragment() {
             // 2. Menerapkan viewModel
             val viewModel = ViewModelProvider(this, factory)[BookmarkViewModel::class.java]
             val courses = viewModel.getBookmarks()
+
             val adapter = BookmarkAdapter(this)
-            adapter.setCourses(courses)
+            // Livedata dalam jetpak
+            fragmentBookmarkBinding.progressBar.visibility = View.VISIBLE
+            viewModel.getBookmarks().observe(this, { courses ->
+                fragmentBookmarkBinding.progressBar.visibility = View.GONE
+                adapter.setCourses(courses)
+                adapter.notifyDataSetChanged()
+            })
 
             with(fragmentBookmarkBinding.rvBookmark) {
                 layoutManager = LinearLayoutManager(context)
