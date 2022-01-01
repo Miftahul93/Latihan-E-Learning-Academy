@@ -67,4 +67,8 @@ dependencies {
 
     // Instrumental Testing dengan Espresso
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
+
+    // testing livedata
+    testImplementation "androidx.arch.core:core-testing:$androidCoreTestVersion"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
 }
