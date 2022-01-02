@@ -5,6 +5,7 @@ import android.os.Looper
 import com.mieftah.academy.data.source.remote.response.ContentResponse
 import com.mieftah.academy.data.source.remote.response.CourseResponse
 import com.mieftah.academy.data.source.remote.response.ModuleResponse
+import com.mieftah.academy.utils.EspressoIdlingResource
 import com.mieftah.academy.utils.JsonHelper
 
 class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
@@ -18,21 +19,47 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
         @Volatile
         private var instance: RemoteDataSource? = null
 
-        fun getInstance(helper: JsonHelper) : RemoteDataSource = instance ?: synchronized(this) {
+        fun getInstance(helper: JsonHelper): RemoteDataSource = instance ?: synchronized(this) {
             instance ?: RemoteDataSource(helper).apply { instance = this }
         }
     }
 
     fun getAllCourses(callback: LoadCoursesCallback) { //: List<CourseResponse> = jsonHelper.loadCourses()
-        handler.postDelayed({ callback.onAllCoursesReceived(jsonHelper.loadCourses()) }, SERVICE_LATENCY_IN_MILLIS)
+        EspressoIdlingResource.increment()
+        handler.postDelayed(
+            {
+                callback.onAllCoursesReceived(jsonHelper.loadCourses())
+                EspressoIdlingResource.decrement()
+            }, SERVICE_LATENCY_IN_MILLIS
+        )
     }
 
-    fun getModules(courseId: String, callback: LoadModuleCallback) {// : List<ModuleResponse> = jsonHelper.loadModule(courseId)
-        handler.postDelayed({ callback.onAllModulesReceived(jsonHelper.loadModule(courseId)) }, SERVICE_LATENCY_IN_MILLIS)
+    fun getModules(
+        courseId: String,
+        callback: LoadModuleCallback
+    ) {// : List<ModuleResponse> = jsonHelper.loadModule(courseId)
+        EspressoIdlingResource.increment()
+        handler.postDelayed(
+            {
+                callback.onAllModulesReceived(jsonHelper.loadModule(courseId))
+                EspressoIdlingResource.decrement()
+            },
+            SERVICE_LATENCY_IN_MILLIS
+        )
     }
 
-    fun getContent(moduleId: String, callback: LoadContentCallback) {//: ContentResponse = jsonHelper.loadContent(moduleId)
-        handler.postDelayed({ callback.onContentReceived(jsonHelper.loadContent(moduleId)) }, SERVICE_LATENCY_IN_MILLIS)
+    fun getContent(
+        moduleId: String,
+        callback: LoadContentCallback
+    ) {//: ContentResponse = jsonHelper.loadContent(moduleId)
+        EspressoIdlingResource.increment()
+        handler.postDelayed(
+            {
+                callback.onContentReceived(jsonHelper.loadContent(moduleId))
+                EspressoIdlingResource.decrement()
+            },
+            SERVICE_LATENCY_IN_MILLIS
+        )
     }
 
     interface LoadCoursesCallback {

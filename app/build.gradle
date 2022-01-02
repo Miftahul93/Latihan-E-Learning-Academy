@@ -71,4 +71,7 @@ dependencies {
     // testing livedata
     testImplementation "androidx.arch.core:core-testing:$androidCoreTestVersion"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
+
+    // Idling resource
+    implementation "androidx.test.espresso:espresso-idling-resource:$idlingResourceVersion"
 }

@@ -40,6 +40,8 @@ ext {
     // LiveData
     mockitoKotlinVersion = '2.2.0'
     androidCoreTestVersion = '2.1.0'
+    //idling
+    idlingResourceVersion = '3.4.0'
 
     materialVersion = '1.4.0'
     recyclerViewVersion = '1.2.1'
