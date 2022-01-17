@@ -11,7 +11,7 @@ import com.mieftah.academy.data.source.remote.response.CourseResponse
 import com.mieftah.academy.data.source.remote.response.ModuleResponse
 
 class AcademyRepository private constructor(private val remoteDataSource: RemoteDataSource) : AcademyDataSource {
-
+    // MENGHUBUNGKAN DATAZOURZE
     companion object {
         @Volatile
         private var instance: AcademyRepository? = null

@@ -5,7 +5,7 @@ import com.mieftah.academy.data.CourseEntity
 import com.mieftah.academy.data.ModuleEntity
 
 interface AcademyDataSource {
-
+    // MENGGABUNGKAN DATAZOURZE
     fun getAllCourse() : LiveData<List<CourseEntity>>
 
     fun getBookmarkedCourses() : LiveData<List<CourseEntity>>
