@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.mieftah.academy.R
-import com.mieftah.academy.data.CourseEntity
+import com.mieftah.academy.data.source.local.entity.CourseEntity
 import com.mieftah.academy.databinding.ItemsAcademyBinding
 import com.mieftah.academy.ui.detail.DetailCourseActivity
 

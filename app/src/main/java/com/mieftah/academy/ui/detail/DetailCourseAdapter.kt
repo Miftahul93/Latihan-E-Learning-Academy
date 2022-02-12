@@ -3,7 +3,7 @@ package com.mieftah.academy.ui.detail
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.mieftah.academy.data.ModuleEntity
+import com.mieftah.academy.data.source.local.entity.ModuleEntity
 import com.mieftah.academy.databinding.ItemsModuleListBinding
 
 class DetailCourseAdapter : RecyclerView.Adapter<DetailCourseAdapter.ModuleViewHolder>() {

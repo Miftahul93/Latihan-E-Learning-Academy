@@ -5,12 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mieftah.academy.databinding.FragmentAcademyBinding
 import com.mieftah.academy.utils.DataDummy
 import com.mieftah.academy.viewmodel.ViewModelFactory
+import com.mieftah.academy.vo.Status
 
 class AcademyFragment : Fragment() {
 
@@ -29,18 +31,37 @@ class AcademyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null) {
-            // 1. val courses = DataDummy.generateDummyCourses()
-            // 3 penerapan viewmodel factory di viewmodel
             val factory = ViewModelFactory.getInstance(requireActivity())
-
-                // 2. Penerapan ViewModel
             val viewModel = ViewModelProvider(this, factory)[AcademyViewModel::class.java]
-            val courses = viewModel.getCourse()
-            val academyAdapter = AcademyAdapter()
 
+            val academyAdapter = AcademyAdapter()
+            viewModel.getCourse().observe(this, { courses ->
+                if (courses != null) {
+                    when(courses.status) {
+                        Status.LOADING -> fragmentAcademyBinding?.progressBar.visibility = View.VISIBLE
+                        Status.SUCCESS -> {
+                            fragmentAcademyBinding?.progressBar?.visibility = View.GONE
+                            academyAdapter.setCourses(courses.data)
+                            academyAdapter.notifyDataSetChanged()
+                        }
+                        Status.ERROR -> {
+                            fragmentAcademyBinding?.progressBar.visibility = View.GONE
+                            Toast.makeText(context, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            })
+
+            with(fragmentAcademyBinding?.rvAcademy) {
+                this?.layoutManager = LinearLayoutManager(context)
+                this?.setHasFixedSize(true)
+                this?.adapter = academyAdapter
+            }
+            //langkah 16
+/*
             // Menerapkan Live Data dalam jetpak
             fragmentAcademyBinding.progressBar.visibility = View.VISIBLE
-            viewModel.getCourse().observe(this, {courses ->
+            viewModel.getCourse().observe(this@, {courses ->
                 fragmentAcademyBinding.progressBar.visibility = View.GONE
                 academyAdapter.setCourses(courses)
                 academyAdapter.notifyDataSetChanged()
@@ -50,7 +71,7 @@ class AcademyFragment : Fragment() {
                 layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
                 adapter = academyAdapter
-            }
+            }*/
         }
     }
 }

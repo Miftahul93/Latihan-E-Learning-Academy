@@ -6,17 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mieftah.academy.R
-import com.mieftah.academy.data.ModuleEntity
+import com.mieftah.academy.data.source.local.entity.ModuleEntity
 import com.mieftah.academy.databinding.FragmentModuleListBinding
 import com.mieftah.academy.ui.reader.CourseReaderActivity
 import com.mieftah.academy.ui.reader.CourseReaderCallback
 import com.mieftah.academy.ui.reader.CourseReaderViewModel
-import com.mieftah.academy.utils.DataDummy
 import com.mieftah.academy.viewmodel.ViewModelFactory
+import com.mieftah.academy.vo.Status
 
 
 class ModuleListFragment : Fragment(), MyAdapterClickListener {
@@ -45,23 +45,26 @@ class ModuleListFragment : Fragment(), MyAdapterClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 2. penerapan viewmodel factory ke viewmodel
         val factory = ViewModelFactory.getInstance(requireActivity())
 
-        // 1. ViewModel
         viewModel = ViewModelProvider(requireActivity(), factory)[CourseReaderViewModel::class.java]
-
         adapter = ModuleListAdapter(this)
 
-        // menerapkan liveData dalam jetpak
-        fragmentModuleListBinding.progressBar.visibility = View.VISIBLE
-        viewModel.getModules().observe(this, {modules ->
-            fragmentModuleListBinding.progressBar.visibility = View.GONE
-            populateRecyclerView(modules)
+        viewModel.modules.observe(this, { moduleEntities ->
+            if (moduleEntities != null) {
+                when(moduleEntities.status) {
+                    Status.LOADING -> fragmentModuleListBinding?.progressBar?.visibility = View.VISIBLE
+                    Status.SUCCESS -> {
+                        fragmentModuleListBinding?.progressBar?.visibility = View.GONE
+                        populateRecyclerView(moduleEntities.data as List<ModuleEntity>)
+                    }
+                    Status.ERROR -> {
+                        fragmentModuleListBinding?.progressBar?.visibility = View.GONE
+                        Toast.makeText(context, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         })
-
-        //populateRecyclerView(DataDummy.generateDummyModules("a14"))
-        //populateRecyclerView(viewModel.getModules())
     }
 
     override fun onAttach(context: Context) {

@@ -1,18 +1,24 @@
 package com.mieftah.academy.data.source
 
 import androidx.lifecycle.LiveData
-import com.mieftah.academy.data.CourseEntity
-import com.mieftah.academy.data.ModuleEntity
+import com.mieftah.academy.data.source.local.entity.CourseEntity
+import com.mieftah.academy.data.source.local.entity.CourseWithModule
+import com.mieftah.academy.data.source.local.entity.ModuleEntity
+import com.mieftah.academy.vo.Resource
 
 interface AcademyDataSource {
     // MENGGABUNGKAN DATAZOURZE
-    fun getAllCourse() : LiveData<List<CourseEntity>>
+    fun getAllCourse() : LiveData<Resource<List<CourseEntity>>>
 
     fun getBookmarkedCourses() : LiveData<List<CourseEntity>>
 
-    fun getCourseWithModules(courseId: String) : LiveData<CourseEntity>
+    fun getCourseWithModules(courseId: String) : LiveData<Resource<CourseWithModule>>
 
-    fun getAllModulesByCourse(courseId: String): LiveData<List<ModuleEntity>>
+    fun getAllModulesByCourse(courseId: String): LiveData<Resource<List<ModuleEntity>>>
 
-    fun getContent(courseId: String, moduleId: String): LiveData<ModuleEntity>
+    fun getContent(moduleId: String): LiveData<Resource<ModuleEntity>>
+
+    fun setCourseBookmark(course: CourseEntity, state: Boolean)
+
+    fun setReadModule(moduke: ModuleEntity)
 }

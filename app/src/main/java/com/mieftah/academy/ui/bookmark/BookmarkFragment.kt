@@ -5,12 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mieftah.academy.data.CourseEntity
+import com.mieftah.academy.data.source.local.entity.CourseEntity
 import com.mieftah.academy.databinding.FragmentBookmarkBinding
-import com.mieftah.academy.utils.DataDummy
 import com.mieftah.academy.viewmodel.ViewModelFactory
 
 

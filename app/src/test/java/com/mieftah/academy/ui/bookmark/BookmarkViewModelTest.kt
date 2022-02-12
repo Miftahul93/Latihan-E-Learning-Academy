@@ -3,7 +3,7 @@ package com.mieftah.academy.ui.bookmark
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.mieftah.academy.data.CourseEntity
+import com.mieftah.academy.data.source.local.entity.CourseEntity
 import com.mieftah.academy.data.source.AcademyRepository
 import com.mieftah.academy.utils.DataDummy
 import com.nhaarman.mockitokotlin2.verify
@@ -14,7 +14,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 

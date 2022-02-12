@@ -3,7 +3,7 @@ package com.mieftah.academy.ui.academy
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.mieftah.academy.data.CourseEntity
+import com.mieftah.academy.data.source.local.entity.CourseEntity
 import com.mieftah.academy.data.source.AcademyRepository
 import com.mieftah.academy.utils.DataDummy
 import org.junit.Test
@@ -16,8 +16,6 @@ import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
-import java.util.*
-import kotlin.collections.ArrayList
 
 @RunWith(MockitoJUnitRunner::class)
 class AcademyViewModelTest {

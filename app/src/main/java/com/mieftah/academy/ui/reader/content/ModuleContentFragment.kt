@@ -5,15 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import com.mieftah.academy.R
-import com.mieftah.academy.data.ContentEntity
-import com.mieftah.academy.data.ModuleEntity
+import com.mieftah.academy.data.source.local.entity.ModuleEntity
 import com.mieftah.academy.databinding.FragmentModuleContentBinding
 import com.mieftah.academy.ui.reader.CourseReaderViewModel
 import com.mieftah.academy.viewmodel.ViewModelFactory
+import com.mieftah.academy.vo.Status
 
 class ModuleContentFragment : Fragment() {
+
+    private lateinit var viewModel: CourseReaderViewModel
 
     companion object {
         val TAG: String = ModuleContentFragment::class.java.simpleName
@@ -34,34 +36,56 @@ class ModuleContentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
-            /* 1. Ganti ke viewmodel
-            val content = ContentEntity("<h3 class=\\\"fr-text-bordered\\\">Contoh Content</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>")
-            populateWebView(content) */
-
-            // 3 penerapan viewmodel factory di viewmodel
             val factory = ViewModelFactory.getInstance(requireActivity())
-            // 2 Penerapan ViewModel
-            val viewModel = ViewModelProvider(requireActivity(), factory)[CourseReaderViewModel::class.java]
+            viewModel = ViewModelProvider(requireActivity(), factory)[CourseReaderViewModel::class.java]
 
-            // Menerapkan LiveData dalam jetpak
-            fragmentModuleContentBinding.progressBar.visibility = View.VISIBLE
-            viewModel.getSelectedModule().observe(this, {module ->
-                fragmentModuleContentBinding.progressBar.visibility = View.GONE
-                if (module != null) {
-                    populateWebView(module)
+            viewModel.selectedModule.observe(viewLifecycleOwner, { moduleEntity ->
+                if (moduleEntity != null) {
+                    when (moduleEntity.status) {
+                        Status.LOADING -> fragmentModuleContentBinding?.progressBar?.visibility = View.VISIBLE
+                        Status.SUCCESS -> if (moduleEntity.data != null) {
+                            fragmentModuleContentBinding?.progressBar?.visibility = View.GONE
+                            if (moduleEntity.data.contentEntity != null) {
+                                populateWebView(moduleEntity.data)
+                            }
+                           setButtonNextPrevState(moduleEntity.data)
+                            if (!moduleEntity.data.read) {
+                                viewModel.readContent(moduleEntity.data)
+                            }
+                        }
+                        Status.ERROR -> {
+                            fragmentModuleContentBinding?.progressBar?.visibility = View.GONE
+                            Toast.makeText(context, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    fragmentModuleContentBinding?.btnNext?.setOnClickListener { viewModel.setNextPage() }
+                    fragmentModuleContentBinding?.btnPrev?.setOnClickListener { viewModel.setPrevpage() }
                 }
             })
-            /*
-            val module = viewModel.getSelectedModule()
-            populateWebView(module)*/
+        }
+    }
+
+    private fun setButtonNextPrevState(module: ModuleEntity) {
+        if (activity != null) {
+            when(module.position) {
+                0 -> {
+                    fragmentModuleContentBinding?.btnPrev?.isEnabled = false
+                    fragmentModuleContentBinding?.btnNext?.isEnabled = true
+                }
+                viewModel.getModuleSize() - 1 -> {
+                    fragmentModuleContentBinding?.btnPrev?.isEnabled = true
+                    fragmentModuleContentBinding?.btnNext?.isEnabled = false
+                }
+                else -> {
+                    fragmentModuleContentBinding?.btnPrev?.isEnabled = true
+                    fragmentModuleContentBinding?.btnNext?.isEnabled = true
+                }
+            }
         }
     }
 
     private fun populateWebView(module: ModuleEntity) {
         fragmentModuleContentBinding.webView.loadData(module.contentEntity?.content ?: "", "text/html", "UTF-8")
     }
-/*
-    private fun populateWebView(content: ContentEntity) {
-        fragmentModuleContentBinding.webView.loadData(content.content ?: "", "text/html", "UTF-8")
-    } */
 }

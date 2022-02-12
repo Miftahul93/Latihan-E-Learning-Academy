@@ -1,7 +1,7 @@
 package com.mieftah.academy.utils
 
-import com.mieftah.academy.data.CourseEntity
-import com.mieftah.academy.data.ModuleEntity
+import com.mieftah.academy.data.source.local.entity.CourseEntity
+import com.mieftah.academy.data.source.local.entity.ModuleEntity
 import com.mieftah.academy.data.source.remote.response.ContentResponse
 import com.mieftah.academy.data.source.remote.response.CourseResponse
 import com.mieftah.academy.data.source.remote.response.ModuleResponse
