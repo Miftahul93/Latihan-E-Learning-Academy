@@ -7,20 +7,13 @@ import com.mieftah.academy.data.source.local.entity.CourseEntity
 import com.mieftah.academy.data.source.local.entity.CourseWithModule
 import com.mieftah.academy.data.source.local.entity.ModuleEntity
 import com.mieftah.academy.data.source.remote.RemoteDataSource
-import com.mieftah.academy.data.source.remote.response.ContentResponse
-import com.mieftah.academy.data.source.remote.response.CourseResponse
-import com.mieftah.academy.data.source.remote.response.ModuleResponse
 import com.mieftah.academy.utils.AppExecutors
 import com.mieftah.academy.utils.DataDummy
 import com.mieftah.academy.utils.LiveDataTestUtil
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.doAnswer
-import com.nhaarman.mockitokotlin2.eq
 import org.junit.Test
 
 import org.junit.Assert.*
 import org.junit.Rule
-import org.mockito.Mockito
 import org.mockito.Mockito.*
 
 class AcademyRepositoryTest {

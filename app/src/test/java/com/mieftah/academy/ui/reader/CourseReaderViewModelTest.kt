@@ -10,7 +10,6 @@ import com.mieftah.academy.utils.DataDummy
 import com.mieftah.academy.vo.Resource
 import org.junit.Test
 
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
@@ -52,18 +51,12 @@ class CourseReaderViewModelTest {
 
     @Test
     fun getModules() {
-        // LiveData 3
         val modules = MutableLiveData<Resource<List<ModuleEntity>>>()
         val resource = Resource.success(dummyModules) as Resource<List<ModuleEntity>>
         modules.value = resource
 
         `when`(academyRepository.getAllModulesByCourse(courseId)).thenReturn(modules)
-/*
-        val moduleEntities = viewModel.getModules().value
-        verify(academyRepository).getAllModulesByCourse(courseId)
-        assertNotNull(moduleEntities)
-        assertEquals(7, moduleEntities?.size)
-*/
+
         val observer = mock(Observer::class.java) as Observer<Resource<List<ModuleEntity>>>
         viewModel.modules.observeForever(observer)
         verify(observer).onChanged(resource)
@@ -71,21 +64,12 @@ class CourseReaderViewModelTest {
 
     @Test
     fun getSelectedModule() {
-        // LiveData 4
         val module = MutableLiveData<Resource<ModuleEntity>>()
         val resource = Resource.success(dummyModules[0])
         module.value = resource
 
         `when`(academyRepository.getContent(moduleId)).thenReturn(module)
-/*        val moduleEntity = viewModel.getSelectedModule().value as ModuleEntity
-        verify(academyRepository).getContent(courseId, moduleId)
-        assertNotNull(moduleEntity)
-        val contentEntity = moduleEntity.contentEntity
-        assertNotNull(contentEntity)
-        val content = contentEntity?.content
-        assertNotNull(content)
-        assertEquals(content, dummyModules[0].contentEntity?.content)
-*/
+
         val observer = mock(Observer::class.java) as Observer<Resource<ModuleEntity>>
         viewModel.selectedModule.observeForever(observer)
         verify(observer).onChanged(resource)

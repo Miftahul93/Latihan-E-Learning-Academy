@@ -23,14 +23,12 @@ class AcademyViewModelTest {
 
     private lateinit var viewModel: AcademyViewModel
 
-    // LiveData 1
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Mock
     private lateinit var academyRepository: AcademyRepository
 
-    // LiveData 2
     @Mock
     private lateinit var observer: Observer<Resource<List<CourseEntity>>>
 
@@ -41,7 +39,6 @@ class AcademyViewModelTest {
 
     @Test
     fun getCourse() {
-        // LiveData 3
         val dummyCourses = Resource.success(DataDummy.generateDummyCourses())
         val courses = MutableLiveData<Resource<List<CourseEntity>>>()
         courses.value = dummyCourses
