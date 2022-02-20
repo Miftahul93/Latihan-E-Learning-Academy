@@ -13,7 +13,7 @@ import com.mieftah.academy.data.source.local.entity.CourseEntity
 import com.mieftah.academy.databinding.ItemsBookmarkBinding
 import com.mieftah.academy.ui.detail.DetailCourseActivity
 
-class BookmarkAdapter(private val callback: BookmarkFragment) : PagedListAdapter<CourseEntity, BookmarkAdapter.CourseViewHolder>(DIFF_CALLBACK) {
+class BookmarkAdapter(private val callback: BookmarkFragmentCallback) : PagedListAdapter<CourseEntity, BookmarkAdapter.CourseViewHolder>(DIFF_CALLBACK) {
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<CourseEntity>(){
@@ -26,14 +26,6 @@ class BookmarkAdapter(private val callback: BookmarkFragment) : PagedListAdapter
             }
         }
     }
-
-    /*private val listCourses = ArrayList<CourseEntity>()
-
-    fun setCourses(courses: List<CourseEntity>?) {
-        if (courses == null) return
-        this.listCourses.clear()
-        this.listCourses.addAll(courses)
-    }*/
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CourseViewHolder {
         val itemsBookmarkBinding = ItemsBookmarkBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -48,8 +40,6 @@ class BookmarkAdapter(private val callback: BookmarkFragment) : PagedListAdapter
     }
 
     fun getSwipedData(swipedPosition: Int): CourseEntity? = getItem(swipedPosition)
-
-//    override fun getItemCount(): Int = listCourses.size
 
     inner class CourseViewHolder(private val binding: ItemsBookmarkBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(course: CourseEntity) {
@@ -73,6 +63,5 @@ class BookmarkAdapter(private val callback: BookmarkFragment) : PagedListAdapter
 
     interface BookmarkFragmentCallback {
         fun onShareClick(course: CourseEntity)
-
     }
 }

@@ -15,8 +15,6 @@ import com.mieftah.academy.ui.detail.DetailCourseActivity
 
 class AcademyAdapter : PagedListAdapter<CourseEntity, AcademyAdapter.CourseViewHolder>(DIFF_CALLBACK) {
 
-   // private var listCourse = ArrayList<CourseEntity>()
-
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<CourseEntity>() {
             override fun areItemsTheSame(oldItem: CourseEntity, newItem: CourseEntity): Boolean {
@@ -29,12 +27,6 @@ class AcademyAdapter : PagedListAdapter<CourseEntity, AcademyAdapter.CourseViewH
         }
     }
 
-    /*fun setCourses(courses: List<CourseEntity>?) {
-        if (courses == null) return
-        this.listCourse.clear()
-        this.listCourse.addAll(courses)
-    }*/
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CourseViewHolder {
         val itemsAcademyBinding = ItemsAcademyBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CourseViewHolder(itemsAcademyBinding)
@@ -46,8 +38,6 @@ class AcademyAdapter : PagedListAdapter<CourseEntity, AcademyAdapter.CourseViewH
             holder.bind(course)
         }
     }
-
-    //override fun getItemCount(): Int = listCourse.size
 
     class CourseViewHolder(private val binding: ItemsAcademyBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(course: CourseEntity) {
@@ -67,6 +57,5 @@ class AcademyAdapter : PagedListAdapter<CourseEntity, AcademyAdapter.CourseViewH
                     .into(imagePoster)
             }
         }
-
     }
 }

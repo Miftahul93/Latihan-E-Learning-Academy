@@ -21,5 +21,5 @@ interface AcademyDataSource {
 
     fun setCourseBookmark(course: CourseEntity, state: Boolean)
 
-    fun setReadModule(moduke: ModuleEntity)
+    fun setReadModule(module: ModuleEntity)
 }
