@@ -1,6 +1,7 @@
 package com.mieftah.academy.data.source
 
 import androidx.lifecycle.LiveData
+import androidx.paging.PagedList
 import com.mieftah.academy.data.source.local.entity.CourseEntity
 import com.mieftah.academy.data.source.local.entity.CourseWithModule
 import com.mieftah.academy.data.source.local.entity.ModuleEntity
@@ -8,9 +9,9 @@ import com.mieftah.academy.vo.Resource
 
 interface AcademyDataSource {
     // MENGGABUNGKAN DATAZOURZE
-    fun getAllCourse() : LiveData<Resource<List<CourseEntity>>>
+    fun getAllCourse() : LiveData<Resource<PagedList<CourseEntity>>>
 
-    fun getBookmarkedCourses() : LiveData<List<CourseEntity>>
+    fun getBookmarkedCourses() : LiveData<PagedList<CourseEntity>>
 
     fun getCourseWithModules(courseId: String) : LiveData<Resource<CourseWithModule>>
 

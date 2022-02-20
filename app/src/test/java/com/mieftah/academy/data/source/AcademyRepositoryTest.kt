@@ -74,10 +74,10 @@ class AcademyRepositoryTest {
     fun getAllModulesByCourse() {
        val dummyModules = MutableLiveData<List<ModuleEntity>>()
         dummyModules.value = DataDummy.generateDummyModules(courseId)
-        `when`(local.getAllmodulesByCourse(courseId)).thenReturn(dummyModules)
+        `when`(local.getAllModulesByCourse(courseId)).thenReturn(dummyModules)
 
         val courseEntities = LiveDataTestUtil.getValue(academyRepository.getAllModulesByCourse(courseId))
-        verify(local).getAllmodulesByCourse(courseId)
+        verify(local).getAllModulesByCourse(courseId)
         assertNotNull(courseEntities.data)
         assertEquals(moduleResponses.size.toLong(), courseEntities.data?.size?.toLong())
     }

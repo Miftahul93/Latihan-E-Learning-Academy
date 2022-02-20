@@ -1,10 +1,8 @@
 package com.mieftah.academy.data.source
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.mieftah.academy.data.NetworkBoundResource
 import com.mieftah.academy.data.source.local.LocalDataSource
-import com.mieftah.academy.data.source.local.entity.ContentEntity
 import com.mieftah.academy.data.source.local.entity.CourseEntity
 import com.mieftah.academy.data.source.local.entity.CourseWithModule
 import com.mieftah.academy.data.source.local.entity.ModuleEntity
@@ -87,7 +85,7 @@ class FakeAcademyRepository constructor(
         return object :
             NetworkBoundResource<List<ModuleEntity>, List<ModuleResponse>>(appExecutors) {
             override fun loadFromDB(): LiveData<List<ModuleEntity>> =
-                localDataSource.getAllmodulesByCourse(courseId)
+                localDataSource.getAllModulesByCourse(courseId)
 
             override fun shouldFetch(modules: List<ModuleEntity>): Boolean =
                 modules == null || modules.isEmpty()
